@@ -19,7 +19,7 @@ const authMiddleware = (req, res, next) => {
         const tokenValue = token.split(" ")[1]; // Extract the token after "Bearer"
 
         const decoded = jwt.verify(tokenValue, process.env.JWT_SECRET);
-
+        console.log("Decoded token:", decoded);
         req.user = decoded; // Attach decoded token data (e.g., id, email) to req.user
 
         next();

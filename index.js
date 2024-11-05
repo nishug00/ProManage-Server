@@ -24,6 +24,8 @@ app.use('/api/v1', indexRouter);
 app.use('/api/v1/user', userRouter); 
 app.use('/api/v1/board',addPeopleRouter);
 app.use('/api/v1/task',taskRouter);
+console.log("/api/v1/task");
+
 
 mongoose.connect(process.env.MONGOOSE_URI_STRING)
     .then(() => {

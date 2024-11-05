@@ -48,6 +48,7 @@ router.get("/registered-users", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  console.log('Received request for login:', req.body);
 
   try {
     const user = await RegisterUser.findOne({ email });
@@ -67,6 +68,7 @@ router.post("/login", async (req, res) => {
       username: user.username,
       email: user.email,
     };
+    console.log('payload',payload);
     const token = jwt.sign(payload, process.env.JWT_SECRET);
 
     res.status(200).json({ message: "Login successful", token });

@@ -9,39 +9,29 @@ const taskSchema = new Schema({
     priority: {
         type: String,
         required: true,
-        enum: ['high', 'moderate', 'low'], // Restrict values to these
+        enum: ['high', 'moderate', 'low'],
     },
     assignee: {
-        type: mongoose.Schema.ObjectId,
-        ref: "AddPeople",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "RegisterUser", // Reference the RegisterUser model
         required: true,
     },
     creator: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "RegisterUser", // Reference the RegisterUser model
         required: true,
     },
-    dueDate: {
-        type: Date,
-        required: false,
-    },
+    dueDate: Date,
     status: {
         type: String,
         enum: ["backlog", "toDo", "inProgress", "done"],
-        default: "toDo", // Default status set to "toDo"
+        default: "toDo",
     },
     checklist: [{
-        name: {
-            type: String,
-            required: true,
-        },
-        completed: {
-            type: Boolean,
-            default: false,
-        },
+        name: String,
+        completed: { type: Boolean, default: false },
     }],
 }, { timestamps: true });
 
 const Task = mongoose.model("Task", taskSchema);
-
 module.exports = Task;
