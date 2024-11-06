@@ -12,8 +12,17 @@ const app = express();
 app.use(incomingRequestLogger);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+const allowedOrigins = process.env.CORS_ORIGIN.split(',');
+
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173' // Use an env variable for flexibility
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
 }));
 
 // Routes
